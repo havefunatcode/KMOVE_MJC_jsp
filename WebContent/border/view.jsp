@@ -19,7 +19,7 @@
 	crossorigin="anonymous">
 
 <style>
-.list-box {
+.view-box {
 	margin-top: 50px;
 }
 </style>
@@ -44,48 +44,83 @@
 		<li class="nav-item"><a class="nav-link disabled" href="#"
 			tabindex="-1" aria-disabled="true">Disabled</a></li>
 	</ul>
-	
-	<%
-		Date nowTime = new Date();
-		SimpleDateFormat sf = new SimpleDateFormat("yyyy년 MM월 dd일 a hh:mm:ss");
-		
-	%>
 
-	<div class="list-box">
-		<div class="container">
-			<table class="table table-hover">
-				<thead class="thead-dark">
-					<tr>
-						<th>번호</th>
-						<th>제목</th>
-						<th>글쓴이</th>
-						<th>작성일시</th>
-					</tr>
-				</thead>
-				<tbody>
-					<%
-						String name[] = {"홍길동", "최민수", "김영수", "김아름", "박문수", "강륭강", "과로사", "꽈뚜룹", "앰비션", "프레이"};
-						String title[] = {"압둘알리", "죽기장인", "강륭궁디", "짝궁딩이", "오리궁디", "강륭궁디", "닭가슴살", "스테이크", "배고프다", "잉기모륑"};
-						for (int i = 1; i <= 10; i++) {
-							Random random = new Random();
-							int randomInt = random.nextInt(10);
-							String randomName = name[randomInt];
-							String randomTitle = title[randomInt];
-					%>
-					<tr>
-						<td><%=i %></td>
-						<td><a href="./view.jsp"><%=randomTitle %></a></td>
-						<td><%=randomName %></td>
-						<td><%= sf.format(nowTime) %></td>
-					</tr>
-					<%
-						}
-					%>
-				</tbody>
-			</table>
+	<div class="container">
+		<div class="view-box">
+		<!-- 글 내용 -->
+			<div class="card">
+				<div class="card-header">애국가</div>
+
+				<div class="card-body">
+					<h5 class="card-title">안녕하세요.</h5>
+				</div>
+				<p class="card-text">홍길동 2020.08.27 13:10:15</p>
+				<p class="card-text">
+					동해물과 백두산이 마르고 닳도록<br> 하느님이 보우하사 우리나라 만세.<br> 무궁화 삼천리 화려
+					강산<br> 대한 사람, 대한으로 길이 보전하세.
+				</p>
+
+				<div class="card-footer">
+					<a href="./list.jsp" class="btn btn-success">목록</a>
+					<div class="float-right">
+						<a href="./edit.jsp" class="btn btn-warning">수정</a>
+						<button type="button" class="btn btn-danger" data-toggle="modal"
+							data-target="#deleteModal">삭제</button>
+					</div>
+				</div>
+			</div>
+			
+			<!-- 댓글 -->
+			<div class="card" style="margin-top:20px;">
+				<div class="card-body">
+					<div>
+						<form>
+							<input type="text" class="fform-control">
+						</form>	
+					</div>
+				</div>
+				
+				<div class="card-footer">
+					<button type="button" class="btn btn-primary">등록</button>
+					<div class="float-right">
+						<button type="button" class="btn btn-warning">수정</button>
+						<button type="button" class="btn btn-danger">삭제</button>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 
+	<div class="modal" tabindex="-1" id="deleteModal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title text-danger">게시글 삭제</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="취소">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<p>
+						삭제된 내용은 복구가 불가능합니다. <br>정말 삭제하시겠습니까?
+					</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-dismiss="modal">취소</button>
+					<div class="float-left">
+						<button type="button" class="btn btn-danger" id="btnDelete">삭제</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<form id="deleteForm" mehod="post" action="./delete">
+		<input type="hidden" name="board_id">
+	</form>
+	
 	<!-- Optional JavaScript -->
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
@@ -98,6 +133,14 @@
 	<script
 		src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
 		integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+		
 		crossorigin="anonymous"></script>
+		
+		<script>
+			$('#btnDelete').on('click', function()	{
+				$('#deleteForm input[name=board_id]').val('abc');
+				$('#deleteForm').submit();
+			})
+		</script>
 </body>
 </html>
