@@ -1,3 +1,7 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"
+	session="true"%>
+	
 <!doctype html>
 <html lang="en">
 <head>
@@ -12,7 +16,7 @@
 	integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
 	crossorigin="anonymous">
 <style>
-.card{
+.card {
 	margin-top: 100px;
 }
 </style>
@@ -43,28 +47,27 @@
 			<div class="card-Login-box">
 				<div class="card-header">LogIn</div>
 				<div class="card-body">
-					<form>
+					<form method="post" action="../login" id="loginForm">
 						<div class="form-group">
 							<label for="exampleInputEmail1">ID</label> <input type="email"
-								class="form-control" id="exampleInputEmail1"
-								aria-describedby="emailHelp" placeholder="Wrtie your ID">
-							<small id="emailHelp" class="form-text text-muted">We'll
-								never share your email with anyone else.</small>
+								class="form-control" name="id"
+								aria-describedby="emailHelp" placeholder="Wrtie your ID">	
 						</div>
 						<div class="form-group">
 							<label for="exampleInputPassword1">Password</label> <input
-								type="password" class="form-control"
-								placeholder="Wrtie your Password" id="exampleInputPassword1">
+								type="password" class="form-control" name="password"
+								placeholder="Wrtie your Password">
 						</div>
 						<div class="form-group form-check">
 							<input type="checkbox" class="form-check-input"
 								id="exampleCheck1"> <label class="form-check-label"
 								for="exampleCheck1">Check me out</label>
 						</div>
-						</form>
+					</form>
 				</div>
 				<div class="card-footer">
-					<button type="submit" class="btn btn-primary">Submit</button>
+					<button type="button" class="btn btn-primary" id="btnLogin">Login</button>
+					<!-- <button type="submit" class="btn btn-primary">Submit</button> -->
 					<!-- <button type="button" class="btn btn-primary" onclick="location.href='./register.jsp'">Register</button> -->
 					<div class="float-right">
 						<a href="./register.jsp">Register</a>
@@ -86,5 +89,37 @@
 		src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
 		integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
 		crossorigin="anonymous"></script>
+	<script>
+		// Press the Login Button	
+		$('#btnLogin').on('click', function(e)	{
+			//e.preventDefault는 고유 동작을 중단시키고, e.stopPropagation 는 상위 엘리먼트들로의 이벤트 전파를 중단시킨다.
+			e.preventDefault();
+			
+			/*
+			let, const를 사용하면 var를 사용할때보다 상당히 이점이 많다. 두개의 공통점은 var와 다르게 변수 재선언 불가능이다.
+			let과 const의 차이점은 변수의 immutable여부이다. let은 변수에 재할당이 가능하지만,
+			const는 변수 재선언, 재할당 모두 불가능하다.
+			*/
+			// use trim to delete space
+			let id = $.trim( $('input[name="id"]').val() );
+			let password = $('input[name="password"]').val();
+			
+			// different id 
+			if(!id || id.length < 6 || id.length > 12)	{
+				alert('Pleas Input your Id.');
+				$('input[name="id"]').focus();
+				return false;
+			}
+			// different password
+			if(!password)	{
+				alert('Pleas Input your password.');
+				$('input[name="password"]').focus();
+				return false;
+			}
+			
+			// submit id, password
+			$('#loginForm').submit();
+		});
+	</script>
 </body>
 </html>
