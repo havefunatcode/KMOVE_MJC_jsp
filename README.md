@@ -2,6 +2,7 @@
 2020년 일본 IT교육 - JSP
 
 # Database query
+'''
 CREATE TABLE `tb_user` (
   `SCHOOL_NUMBER` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '교번/학번',
   `NAME` varchar(4) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '이름',
@@ -23,3 +24,4 @@ ALTER TABLE `tb_user`
   ADD PRIMARY KEY (`SCHOOL_NUMBER`),
   ADD UNIQUE KEY `EMAIL` (`EMAIL`);
 COMMIT;
+'''
